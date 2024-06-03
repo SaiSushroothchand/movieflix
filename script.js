@@ -6,54 +6,70 @@ const searchURL = BASE_URL + '/search/movie?' + API_KEY;
 
 let currentPage = 1;
 let currentURL = API_URL;
+let users = {};
+let currentUser = null;
 
 document.getElementById('signin-link').addEventListener('click', () => {
     document.getElementById('signin-form').style.display = 'block';
     document.getElementById('signup-form').style.display = 'none';
+    clearMessages();
 });
 
 document.getElementById('signup-link').addEventListener('click', () => {
     document.getElementById('signup-form').style.display = 'block';
     document.getElementById('signin-form').style.display = 'none';
+    clearMessages();
 });
 
 document.getElementById('signin-btn').addEventListener('click', () => {
-    // Handle sign in (add authentication logic here)
-    showHomeScreen();
+    const email = document.getElementById('signin-email').value;
+    const password = document.getElementById('signin-password').value;
+
+    if (!email || !password) {
+        document.getElementById('signin-error').textContent = 'Please fill in all fields.';
+        return;
+    }
+
+    if (users[email] && users[email].password === password) {
+        currentUser = email;
+        showHomeScreen();
+    } else {
+        document.getElementById('signin-error').textContent = 'No account found with the given credentials.';
+    }
 });
 
 document.getElementById('signup-btn').addEventListener('click', () => {
-    // Handle sign up (add registration logic here)
-    showHomeScreen();
-});
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('signup-confirm-password').value;
 
-document.getElementById('start').addEventListener('click', () => {
-    // Handle email submission (add logic here)
-    showSignUpForm();
-});
-
-document.getElementById('search').addEventListener('input', (e) => {
-    const query = e.target.value;
-    currentPage = 1;
-    if (query) {
-        currentURL = searchURL + '&query=' + query;
-    } else {
-        currentURL = API_URL;
+    if (!name || !email || !password || !confirmPassword) {
+        document.getElementById('signup-error').textContent = 'Please fill in all fields.';
+        return;
     }
-    loadMovies(currentURL);
-});
 
-document.getElementById('load-more').addEventListener('click', () => {
-    currentPage++;
-    loadMovies(currentURL, currentPage);
-});
+    if (password !== confirmPassword) {
+        document.getElementById('signup-error').textContent = 'Passwords do not match.';
+        return;
+    }
 
-document.getElementById('playlist-link').addEventListener('click', () => {
-    showPlaylists();
+    if (users[email]) {
+        document.getElementById('signup-error').textContent = 'Email already in use.';
+        return;
+    }
+
+    users[email] = { name, password, playlists: [] };
+    document.getElementById('signup-success').textContent = 'Your account has been created successfully!';
+    setTimeout(() => {
+        document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('signin-form').style.display = 'block';
+        document.getElementById('signup-success').textContent = '';
+    }, 2000);
 });
 
 document.getElementById('logout-link').addEventListener('click', () => {
-    // Handle logout (add logout logic here)
+    currentUser = null;
     document.getElementById('user-links').style.display = 'none';
     document.getElementById('auth-links').style.display = 'block';
     document.getElementById('home-screen').style.display = 'none';
@@ -135,7 +151,7 @@ function displayMovies(movies) {
 }
 
 function promptAddToPlaylist(id, title, poster_path) {
-    if (playlists.length === 0) {
+    if (users[currentUser].playlists.length === 0) {
         alert('No playlists created. Please create a playlist first.');
         return;
     }
@@ -158,7 +174,7 @@ function showPlaylists() {
     document.getElementById('playlist-screen').style.display = 'block';
     const playlistsContainer = document.getElementById('playlists-container');
     playlistsContainer.innerHTML = '';
-    playlists.forEach(playlist => {
+    users[currentUser].playlists.forEach(playlist => {
         const playlistEl = document.createElement('div');
         playlistEl.classList.add('playlist-item');
         playlistEl.innerHTML = `
@@ -201,13 +217,14 @@ function createPlaylist(name, isPublic) {
         return;
     }
     const newPlaylist = { name, isPublic, movies: [] };
-    playlists.push(newPlaylist);
+    users[currentUser].playlists.push(newPlaylist);
     playlistMap.set(name, newPlaylist);
     alert(`Playlist ${name} created!`);
+    showPlaylists();
 }
 
 function deletePlaylist(name) {
-    playlists = playlists.filter(playlist => playlist.name !== name);
+    users[currentUser].playlists = users[currentUser].playlists.filter(playlist => playlist.name !== name);
     playlistMap.delete(name);
     alert(`Playlist ${name} deleted!`);
     document.getElementById('playlist-detail-screen').style.display = 'none';
@@ -219,4 +236,10 @@ function updatePlaylistPrivacy(name, isPublic) {
     const playlist = playlistMap.get(name);
     playlist.isPublic = isPublic;
     alert(`Playlist ${name} is now ${isPublic ? 'public' : 'private'}.`);
+}
+
+function clearMessages() {
+    document.getElementById('signin-error').textContent = '';
+    document.getElementById('signup-error').textContent = '';
+    document.getElementById('signup-success').textContent = '';
 }
