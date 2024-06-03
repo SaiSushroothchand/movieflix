@@ -63,6 +63,16 @@ header {
     font-size: 18px;
 }
 
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+.success-message {
+    color: green;
+    font-size: 14px;
+}
+
 .home {
     display: none;
     padding: 20px;
