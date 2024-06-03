@@ -76,6 +76,8 @@ document.getElementById('logout-link').addEventListener('click', () => {
     document.querySelector('.hero').style.display = 'block';
 });
 
+document.getElementById('playlist-link').addEventListener('click', showPlaylists);
+
 document.getElementById('back-to-movies').addEventListener('click', () => {
     document.getElementById('playlist-screen').style.display = 'none';
     document.getElementById('home-screen').style.display = 'block';
@@ -115,11 +117,6 @@ function showHomeScreen() {
     document.getElementById('auth-links').style.display = 'none';
     document.getElementById('user-links').style.display = 'block';
     loadMovies(API_URL);
-}
-
-function showSignUpForm() {
-    document.querySelector('.hero').style.display = 'none';
-    document.getElementById('signup-form').style.display = 'block';
 }
 
 function loadMovies(url, page = 1) {
@@ -243,3 +240,8 @@ function clearMessages() {
     document.getElementById('signup-error').textContent = '';
     document.getElementById('signup-success').textContent = '';
 }
+
+// Ensure playlist link works after login
+document.getElementById('playlist-link').addEventListener('click', () => {
+    showPlaylists();
+});
