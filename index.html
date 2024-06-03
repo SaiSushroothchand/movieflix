@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movieflix</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="logo">Movieflix</div>
+            <div class="auth-links" id="auth-links">
+                <a href="#" id="signin-link">Sign In</a>
+                <a href="#" id="signup-link">Sign Up</a>
+            </div>
+            <div class="user-links" id="user-links" style="display: none;">
+                <a href="#" id="playlist-link">Playlists</a>
+                <a href="#" id="logout-link">Logout</a>
+            </div>
+        </header>
+
+        <div class="hero">
+            <h1>Unlimited movies, TV shows and more</h1>
+            <p>Watch anywhere. Cancel anytime.</p>
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+            <input type="email" id="email" placeholder="Email">
+            <button id="start">Get Started</button>
+        </div>
+
+        <div class="auth-form" id="signin-form">
+            <h2>Sign In</h2>
+            <input type="email" id="signin-email" placeholder="Email">
+            <input type="password" id="signin-password" placeholder="Password">
+            <button id="signin-btn">Sign In</button>
+        </div>
+
+        <div class="auth-form" id="signup-form">
+            <h2>Sign Up</h2>
+            <input type="text" id="signup-name" placeholder="Name">
+            <input type="email" id="signup-email" placeholder="Email">
+            <input type="password" id="signup-password" placeholder="Password">
+            <input type="password" id="signup-confirm-password" placeholder="Confirm Password">
+            <button id="signup-btn">Sign Up</button>
+        </div>
+
+        <div class="home" id="home-screen">
+            <input type="text" id="search" placeholder="Search for movies...">
+            <div id="movie-container"></div>
+            <button id="load-more" style="display: none;">Load More</button>
+        </div>
+
+        <div class="playlist" id="playlist-screen" style="display: none;">
+            <h2>Your Playlists</h2>
+            <button id="create-playlist">Create Playlist</button>
+            <div id="playlists-container"></div>
+            <button id="back-to-movies">Back to Movies</button>
+        </div>
+
+        <div class="playlist-detail" id="playlist-detail-screen" style="display: none;">
+            <h2 id="playlist-name"></h2>
+            <label>
+                <input type="checkbox" id="playlist-public-private">
+                Public
+            </label>
+            <button id="delete-playlist">Delete Playlist</button>
+            <div id="playlist-detail-container"></div>
+            <button id="back-to-playlists">Back to Playlists</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

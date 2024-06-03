@@ -1,0 +1,159 @@
+body {
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-image: url('bg.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: none;
+}
+
+.logo {
+    font-size: 32px;
+    font-family: 'Lobster', cursive;
+    font-weight: bold;
+}
+
+.auth-links a, .user-links a {
+    color: #fff;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.hero {
+    text-align: center;
+    margin-top: 150px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-family: 'Lobster', cursive;
+}
+
+.hero p {
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    margin: 10px 0;
+}
+
+.hero input, .hero button {
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.auth-form {
+    display: none;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.auth-form input, .auth-form button {
+    display: block;
+    padding: 10px;
+    margin: 10px auto;
+    font-size: 18px;
+}
+
+.home {
+    display: none;
+    padding: 20px;
+}
+
+#movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#movie-container .movie {
+    margin: 10px;
+    width: 200px;
+    position: relative;
+}
+
+#movie-container img {
+    width: 100%;
+}
+
+#movie-container .movie button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#movie-container .movie button::after {
+    content: '+';
+    font-size: 20px;
+}
+
+#movie-container .movie button:hover::after {
+    content: 'Add to Playlist';
+}
+
+#load-more {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #e50914;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.playlist, .playlist-detail {
+    display: none;
+    padding: 20px;
+}
+
+#playlists-container, #playlist-detail-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#playlists-container .playlist-item, #playlist-detail-container .movie {
+    margin: 10px;
+    width: 200px;
+    position: relative;
+}
+
+#playlists-container .playlist-item img, #playlist-detail-container img {
+    width: 100%;
+}
+
+#playlists-container .playlist-item button, #playlist-detail-container .movie button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#back-to-movies, #back-to-playlists, #delete-playlist, #create-playlist {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #e50914;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
